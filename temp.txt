@@ -1,0 +1,65 @@
+"""
+
+import streamlit as st
+import pandas as pd
+from joblib import load
+from pathlib import Path
+
+# Function to load the model using the appropriate caching decorator
+@st.cache_resource
+def load_model():
+    model_path = Path('models/great_league_model.joblib')
+    model = load(model_path)
+    return model
+
+# Load the model
+model_great_league = load_model()
+
+# Define the user input fields in the Streamlit sidebar
+st.sidebar.header('User Input Features')
+def user_input_features():
+    pokemon_id = st.sidebar.text_input('Pokemon ID e.g. 0001')
+    type_one = st.sidebar.selectbox('Type One', options=['Water', 'Fire', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dark', 'Dragon', 'Steel', 'Fairy'])
+    type_two = st.sidebar.selectbox('Type Two', options=['None', 'Water', 'Fire', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dark', 'Dragon', 'Steel', 'Fairy'])
+    fast_move = st.sidebar.selectbox('Fast Move', options=['Tackle', 'Vine Whip', 'Razor Leaf', 'Scratch', 'Ember', 'Fire Fang', 'Air Slash', 'Dragon Breath', 'Wing Attack', 'Fire Spin', 'Bubble', 'Bite', 'Water Gun', 'Bug Bite', 'Confusion', 'Struggle Bug', 'Poison Sting', 'Infestation', 'Poison Jab', 'Quick Attack', 'Steel Wing', 'Gust', 'Peck', 'Acid', 'Dragon Tail', 'Thunder Shock', 'Present', 'Charm', 'Spark', 'Volt Switch', 'Metal Claw', 'Powder Snow', 'Mud Shot', 'Shadow Claw', 'Double Kick', 'Iron Tail', 'Fury Cutter', 'Zen Headbutt', 'Pound', 'Charge Beam', 'Fairy Wind', 'Feint Attack', 'Mud Slap', 'Sucker Punch', 'Karate Chop', 'Counter', 'Low Kick', 'Thunder Fang', 'Snarl', 'Rock Smash', 'Psycho Cut', 'Bullet Punch', 'Bullet Seed', 'Rock Throw', 'Rollout', 'Incinerate', 'Cut', 'Ice Shard', 'Lick', 'Frost Breath', 'Astonish', 'Hex', 'Extrasensory', 'Waterfall', 'Hidden Power (Psychic)', 'Hidden Power (Water)', 'Hidden Power (Rock)', 'Hidden Power (Grass)', 'Hidden Power (Poison)', 'Hidden Power (Fighting)', 'Hidden Power (Electric)', 'Hidden Power (Bug)', 'Hidden Power (Dark)', 'Hidden Power (Fire)', 'Hidden Power (Ground)', 'Hidden Power (Ice)', 'Hidden Power (Dragon)', 'Hidden Power (Ghost)', 'Hidden Power (Flying)', 'Hidden Power (Steel)', 'Magical Leaf', 'Splash', 'Transform', 'Yawn', 'Ice Fang', 'Lock-On', 'Hidden Power', 'Smack Down', 'Take Down', 'Mud-Slap', 'Leafage', 'Water Shuriken', 'Geomancy'])
+    charge_move = st.sidebar.selectbox('Charge Move', options=['Return', 'Power Whip', 'Sludge Bomb', 'Seed Bomb', 'Frustration', 'Solar Beam', 'Petal Blizzard', 'Sludge Wave', 'Frenzy Plant', 'Flame Burst', 'Flamethrower', 'Flame Charge', 'Fire Punch', 'Blast Burn', 'Overheat', 'Fire Blast', 'Dragon Claw', 'Aqua Jet', 'Aqua Tail', 'Water Pulse', 'Ice Beam', 'Hydro Pump', 'Skull Bash', 'Hydro Cannon', 'Flash Cannon', 'Struggle', 'Signal Beam', 'Bug Buzz', 'Psychic', 'Aerial Ace', 'X-Scissor', 'Drill Run', 'Fell Stinger', 'Air Cutter', 'Twister', 'Brave Bird', 'Feather Dance', 'Hurricane', 'Shadow Ball', 'Crunch', 'Hyper Fang', 'Dig', 'Body Slam', 'Hyper Beam', 'Drill Peck', 'Sky Attack', 'Poison Fang', 'Gunk Shot', 'Wrap', 'Dark Pulse', 'Acid Spray', 'Wild Charge', 'Thunderbolt', 'Discharge', 'Fly', 'Surf', 'Thunder', 'Thunder Punch', 'Play Rough', 'Flying Press', 'Meteor Mash', 'Draining Kiss', 'Grass Knot', 'Trailblaze', 'Brick Break', 'Gyro Ball', 'Blizzard', 'Night Slash', 'Rock Slide', 'Sand Tomb', 'Rock Tomb', 'Bulldoze', 'Ice Punch', 'Earthquake', 'Scorching Sands', 'Earth Power', 'Stone Edge', 'Horn Attack', 'Megahorn', 'Moonblast', 'Disarming Voice', 'Dazzling Gleam', 'Weather Ball Ice', 'Weather Ball Fire', 'Psyshock', 'Heat Wave', 'Icy Wind', 'Swift', 'Ominous Wind', 'Cross Poison', 'Psybeam', 'Silver Wind', 'Mud Bomb', 'Iron Head', 'Foul Play', 'Payback', 'Power Gem', 'Cross Chop', 'Synchronoise', 'Bubble Beam', 'Liquidation', 'Low Sweep', 'Close Combat', 'Flame Wheel', 'Psychic Fangs', 'Scald', 'Dynamic Punch', 'Power-Up Punch', 'Submission', 'Future Sight', 'Focus Blast', 'Heavy Slam', 'Leaf Blade', 'Leaf Tornado', 'Rock Blast', 'Ancient Power', 'Stomp', 'High Horsepower', 'Magnet Bomb', 'Zap Cannon', 'Aurora Beam', 'Sludge', 'Razor Shell', 'Avalanche', 'Night Shade', 'Shadow Punch', 'Breaking Swipe', 'Vise Grip', 'Crabhammer', 'Energy Ball', 'Dragon Pulse', 'Draco Meteor', 'Bone Club', 'Shadow Bone', 'Blaze Kick', 'Brutal Swing', 'Outrage', 'Triple Axel', 'Superpower', 'Last Resort', 'Brine', 'Psystrike', 'Lunge', 'Shadow Sneak', 'Meteor Beam', 'Weather Ball Water', 'Acrobatics', 'Leaf Storm', 'Mirror Coat', 'Mirror Shot', 'Octazooka', 'Tri-Attack', 'Aeroblast', 'Aeroblast++', 'Aeroblast+', 'Sacred Fire', 'Sacred Fire+', 'Sacred Fire++', 'Muddy Water', 'Boomburst', 'Weather Ball Rock', 'Weather Ball', 'Poltergeist', 'Icicle Spear', 'Mist Ball', 'Luster Purge', 'Origin Pulse', 'Precipice Blades', 'Dragon Ascent', 'Doom Desire', 'Psycho Boost', 'Mystical Fire', 'Aura Sphere', 'Rock Wrecker', 'Roar of Time', 'Spacial Rend', 'Magma Storm', 'Giga Impact', 'Shadow Force', 'Seed Flare', 'V-create', 'Sacred Sword', 'Fusion Flare', 'Fusion Bolt', 'Glaciate', 'Techno Blast (Normal)', 'Techno Blast (Burn)', 'Techno Blast (Douse)', 'Techno Blast (Chill)', 'Techno Blast', 'Techno Blast (Shock)', 'Parabolic Charge', 'Oblivion Wing', 'Giga Drain', 'Drain Punch', 'Double Iron Bash', 'Obstruct'])
+    base_attack = st.sidebar.slider('Base Attack', 0, 345, 100)
+    base_defense = st.sidebar.slider('Base Defense', 0, 396, 100)
+    base_hp = st.sidebar.slider('Base HP', 0, 496, 100)
+
+    # Default values for missing features
+    default_values = {
+        'ID':pokemon_id,'FAST_MOVE_POWER': 10, 'FAST_ENERGY_BOOST': 10, 'FAST_MOVE_DURATION': 1,
+        'CHARGE_MOVE_POWER': 40, 'CHARGE_MOVE_ENERGY_COST': 50, 'CHARGE_MOVE_DURATION': 2,
+        'DAMAGE_WINDOW_START': 1, 'FAST_MOVE_DPS': 10, 'CHARGE_MOVE_DPS': 20,
+        'FAST_MOVE_EPS': 10, 'SYNERGY_SCORE': 5, 'ADJUSTED_FAST_MOVE_DPS': 12,
+        'ADJUSTED_CHARGE_MOVE_DPS': 24, 'FAST_MOVE_EFFECTIVENESS': 1,
+        'CHARGE_MOVE_EFFECTIVENESS': 1, 'FAST_WEATHER_BOOST': 1, 'CHARGE_WEATHER_BOOST': 1,
+        'ADJUSTED_FAST_MOVE_DPS_WEATHER': 12, 'ADJUSTED_CHARGE_MOVE_DPS_WEATHER': 24,
+        'ADJUSTED_FAST_MOVE_DPS_SHADOW': 12, 'ADJUSTED_CHARGE_MOVE_DPS_SHADOW': 24,
+        'ADJUSTED_CHARGE_MOVE_ENERGY_COST': 50, 'MAX_CP_50': 2000, 'MAX_CP_51': 2050,
+        'FAST_MOVE_TYPE_COVERAGE': 1, 'CHARGE_MOVE_TYPE_COVERAGE': 1
+    }
+
+    # Combine user input with default values into a DataFrame
+    data = {
+        'TYPE_ONE': [type_one], 'TYPE_TWO': [type_two], 'FAST_MOVE': [fast_move],
+        'CHARGE_MOVE': [charge_move], 'BASE_ATTACK': [base_attack], 'BASE_DEFENSE': [base_defense],
+        'BASE_HP': [base_hp]
+    }
+    data.update(default_values)  # Add default values for other features
+    features = pd.DataFrame(data)
+    return features
+
+input_df = user_input_features()
+
+# Display the input features to the user
+st.header('Specified Input features')
+st.write(input_df)
+
+# Predict and display the output
+st.header('Prediction')
+if st.button('Predict'):
+    prediction = model_great_league.predict(input_df)
+    st.write(f'This Pokémon is {"suitable" if prediction[0] else "not suitable"} for the Great League.')
+"""
